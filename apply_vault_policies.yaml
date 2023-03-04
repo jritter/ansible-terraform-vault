@@ -1,0 +1,9 @@
+- name: Install Vault Policies
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Define the backend configuration at init
+    cloud.terraform.terraform:
+      project_path: 'tf/'
+      state: present
+      force_init: true
