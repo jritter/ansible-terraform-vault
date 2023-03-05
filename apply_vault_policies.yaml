@@ -1,9 +1,19 @@
 - name: Install Vault Policies
   hosts: localhost
   gather_facts: no
+  vars:
+    managed_clusters:
+    - orion
+    - vega
+    - sirius
+    - altair
   tasks:
   - name: Define the backend configuration at init
     cloud.terraform.terraform:
-      project_path: 'tf/'
+      project_path: "tf/"
       state: present
       force_init: true
+      variables:
+        # https://github.com/ansible/ansible/issues/51687
+        managed_clusters: "{{ managed_clusters | to_json }}"
+
